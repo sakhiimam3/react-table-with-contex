@@ -1,30 +1,22 @@
-export const initialState={
-        tableData:[]
+export const initialState = {
+    tableData: []
 }
 
-const tableReducer = (state,action)=>{
-    const {type, payload}=action;
+const tableReducer = (state, action) => {
+    const { type, payload } = action;
     switch (type) {
+        case "GET_ALL_DATA":
 
-        case "ADD_DATA":
-            console.log("addData",payload)
-            return{
+            return {
                 ...state,
-                tableData:payload
+                tableData: payload.alldata
             }
 
-        case "ALL_TABLE_DATA":
-            console.log("alldata",payload)
-            return{
-                ...state,
-                tableData:payload
-            }
-    
         default:
-        throw new Error(`No case for type ${type} found in table reducer`)
+            throw new Error(`No case for type ${type} found in table reducer`)
     }
 
-     
+
 }
 
 export default tableReducer

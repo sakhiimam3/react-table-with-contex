@@ -4,16 +4,16 @@ import MaterialTable from 'material-table'
 import AddIcon from '@material-ui/icons/Add';
 import { Checkbox } from '@material-ui/core';
 import TableModal from './formModal';
-
+import { useGlobalContex } from "../contexapi/TableContex"
 
 
 
 
 function Table() {
- 
+    const { tableData, removeTable, updateTable } = useGlobalContex()
 
     const [filter, setFilter] = useState(null)
-    
+
     // handle filter button 
     const handleCheckBox = () => {
         setFilter(true)
@@ -26,24 +26,7 @@ function Table() {
 
 
 
-  const data={
-   table: [ {
-    "name": "sikander ",
-    "email": "sikander@gmail.com",
-    "phone": "03332113411",
-    "address": "lahore  , pakistan ",
-    "city": "lahore",
-    "id": 4
-  },
-  {
-    "name": "rizwan",
-    "email": "gazi@gmail.com",
-    "phone": "22113411",
-    "address": "karach bandarga",
-    "city": "dehli",
-    "id": 5
-  },] 
-  }
+
 
     const columns = [
         { title: "Id", field: "id", },
@@ -69,18 +52,17 @@ function Table() {
             <div className='modal-popup'>
                 <TableModal />
             </div>
-            <MaterialTable columns={columns} data={data.table}
+            <MaterialTable columns={columns} data={tableData}
 
                 editable={{
 
                     onRowUpdate: (newRow, oldRow) => new Promise((resolve, reject) => {
-                    
+                        updateTable({ id: oldRow.id, data: newRow })
+                        resolve()
                     }),
                     onRowDelete: (selectedRow) => new Promise((resolve, reject) => {
-
-                   
-
-
+                        removeTable(selectedRow.id)
+                        resolve()
                     })
                 }}
 
