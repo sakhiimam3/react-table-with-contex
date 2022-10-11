@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {useEffect} from 'react';
 import Modal from 'react-modal';
-import {useDispatch} from "react-redux"
-
+import { useGlobalContex } from "../contexapi/TableContex"
 
 
 const customStyles = {
@@ -19,7 +18,7 @@ const customStyles = {
 
 
 function TableModal() {
-
+   const {addtoTable}=useGlobalContex()
     let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [inputField, setInputField] = useState({
@@ -61,7 +60,7 @@ function TableModal() {
     const addButton = (e) => {
         e.preventDefault()
         if (inputField ?. name !== "" && inputField ?. email !== "" && inputField ?. phone !== "" && inputField ?. address !== "" && inputField ?. city !== "") {
-          
+            addtoTable(inputField)
 
         } else {
             alert("please fill all input")
